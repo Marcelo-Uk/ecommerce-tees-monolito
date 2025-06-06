@@ -5,7 +5,7 @@ Projeto educacional criado por desenvolvedores do IFG — "os Guris".
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+###### 🚀 Tecnologias Utilizadas
 
 - Python 3.11+
 - Django 5+
@@ -16,7 +16,7 @@ Projeto educacional criado por desenvolvedores do IFG — "os Guris".
 
 ---
 
-## 📦 Requisitos
+###### 📦 Requisitos
 
 - Python 3.11 ou superior
 - Git
@@ -24,7 +24,7 @@ Projeto educacional criado por desenvolvedores do IFG — "os Guris".
 
 ---
 
-## 🔧 Passos para Executar o Projeto
+###### 🔧 Passos para Executar o Projeto
 
 ### 1. Clone o Repositório
 
@@ -35,10 +35,10 @@ cd seu-repositorio
 
 python -m venv venv
 
-# Windows
+##### Windows
 venv\Scripts\activate
 
-# Linux/macOS
+##### Linux/macOS
 source venv/bin/activate
 
 ### 3. Instale as Dependências

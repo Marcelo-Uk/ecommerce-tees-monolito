@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="{% static 'assets/css/carrinho.css' %}">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1>O Monolito</h1>
+                <p>Um e-commerce digital desenvolvido pelos "Guris"</p>
+            </div>
+            <div class="header-buttons">
+                {# Use Django URL tag for internal links #}
+                <a href="{% url 'core:products' %}" class="btn btn-secondary">Voltar para Produtos</a>
+                <button id="logoutButton" class="btn btn-danger">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <main class="body-container">
+        <div class="cart-container">
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items" class="cart-items">
+                <!-- Produtos do carrinho serão adicionados dinamicamente aqui -->
+            </div>
+            <div class="cart-summary">
+                <p id="total-price">Total: R$ 0,00</p>
+                <div class="cart-buttons">
+                    <button id="clear-cart" class="btn btn-danger">Limpar Carrinho</button>
+                    {# Use Django URL tag for internal links #}
+                    <a href="{% url 'core:products' %}" class="btn btn-secondary">Voltar para Produtos</a>
+                    {# Button triggers JS, which should redirect to the payment page URL #}
+                    <button id="checkout" class="btn btn-primary">Ir para Pagamento</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="{% static 'assets/js/config.js' %}"></script>
+    <script src="{% static 'assets/js/carrinho.js' %}" type="module"></script>
+    <script src="{% static 'assets/js/logout.js' %}"></script>
+
+    
+</body>
+</html>
+

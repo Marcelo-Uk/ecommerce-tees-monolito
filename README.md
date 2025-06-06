@@ -28,7 +28,6 @@ Projeto educacional criado por desenvolvedores do IFG — "os Guris".
 
 ### 1. Clone o Repositório
 
-```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
 

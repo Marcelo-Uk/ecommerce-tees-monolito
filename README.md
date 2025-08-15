@@ -29,7 +29,8 @@ Projeto educacional criado por desenvolvedores do IFG — "os Guris".
 ### 1. Clone o Repositório
 
 git clone https://github.com/Marcelo-Uk/ecommerce-tees-monolito
-cd seu-repositorio
+
+E acesse a pasta onde foi baixado o projeto
 
 ### 2. Crie e Ative um Ambiente Virtual
 

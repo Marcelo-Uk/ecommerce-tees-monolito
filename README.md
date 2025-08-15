@@ -46,10 +46,6 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-    Se o arquivo requirements.txt não existir, você pode gerá-lo com:
-
-pip freeze > requirements.txt
-
 ### 4. Configure as Migrações
 
 python manage.py makemigrations

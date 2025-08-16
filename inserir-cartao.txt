@@ -1,0 +1,3 @@
+$ python manage.py shell -c "from decimal import Decimal as D; \
+from pagamentos.models import Cartao; \
+Cartao.objects.update_or_create(numero_cartao='1234567890123456', nome_cartao='SOU EU MESMO', data_validade='12/12', cvv='987', defaults={'saldo_debito':D('1000.00'),'saldo_credito':D('1000.00')}); print('ok')"

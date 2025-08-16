@@ -11,3 +11,6 @@ class Cartao(models.Model):
     def __str__(self):
         return f"{self.numero_cartao} - {self.nome_cartao}"
 
+    class Meta:
+        verbose_name = "Cartão"
+        verbose_name_plural = "Cartões"

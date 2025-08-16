@@ -1,84 +1,101 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartões</title>
-    <link rel="stylesheet" href="{% static 'assets/css/cartoes.css' %}">
-
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento</title>
+  <link rel="stylesheet" href="{% static 'assets/css/cartoes.css' %}">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <style>
+    /* Toast simples para feedback de sucesso */
+    .success-message {
+      display: none;
+      margin: 16px auto;
+      padding: 12px 16px;
+      max-width: 720px;
+      background: #e6ffed;
+      border: 1px solid #86efac;
+      color: #065f46;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .success-message.show { display: block; }
+    .btn-submit[disabled] { opacity: .7; cursor: not-allowed; }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="header-text">
-                <h1>Pagamento</h1>
-                <p>No momento estamos aceitando apenas pagamentos em Cartões</p>
-            </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1>Pagamento</h1>
+        <p>No momento estamos aceitando apenas pagamentos em Cartões</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mensagem de sucesso (mostrada via JS) -->
+  <div id="successMessage"
+       class="success-message"
+       role="status"
+       aria-live="polite">
+  </div>
+
+  <!-- Body -->
+  <main class="body-container">
+    <form
+      id="cardForm"
+      class="card-form"
+      data-validate-url="{% url 'pagamentos:validar_cartao' %}"
+      data-success-url="{% url 'core:products' %}"
+      data-cart-url="{% url 'core:carrinho' %}"
+    >
+      <div class="form-group">
+        <label for="cardNumber">Número do Cartão</label>
+        <input type="text" id="cardNumber" placeholder="16 dígitos" maxlength="19" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cardName">Nome no Cartão</label>
+        <input type="text" id="cardName" placeholder="Nome completo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cardExpiry">Data de Validade</label>
+        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cardCVV">CVV</label>
+        <input type="text" id="cardCVV" placeholder="000" maxlength="3" required>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Pagamento</label>
+        <div class="payment-options">
+          <label><input type="radio" name="paymentType" value="debito" required> Débito</label>
+          <label><input type="radio" name="paymentType" value="credito" required> Crédito</label>
         </div>
-    </header>
+      </div>
 
-    <!-- Body -->
-    <main class="body-container">
-        <form id="cardForm" class="card-form">
-            <div class="form-group">
-                <label for="cardNumber">Número do Cartão</label>
-                <input type="text" id="cardNumber" placeholder="16 digitos" maxlength="19" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="cardName">Nome no Cartão</label>
-                <input type="text" id="cardName" placeholder="Nome completo" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="cardExpiry">Data de Validade</label>
-                <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="cardCVV">CVV</label>
-                <input type="text" id="cardCVV" placeholder="000" maxlength="3" required>
-            </div>
-    
-            <!-- Opção de Débito ou Crédito -->
-            <div class="form-group">
-                <label>Tipo de Pagamento</label>
-                <div class="payment-options">
-                    <label>
-                        <input type="radio" name="paymentType" value="debito" required> Débito
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentType" value="credito" required> Crédito
-                    </label>
-                </div>
-            </div>
-    
-            <button type="submit" class="btn-submit" id="btn-submit">Enviar</button>
-    
-            <!-- Botão Voltar ao Carrinho -->
-            {# Button triggers JS, which should redirect using window.location.href = 
-            '{% url 'core:carrinho' %}' or similar #}
-            <button type="button" id="btn-back-cart" class="btn-back-cart">Voltar ao Carrinho</button>
-        </form>
-    </main>
-    
-    
-    
-    {# Removed duplicate script tag #}
-    
-    
-    
-    <script src="{% static 'assets/js/config.js' %}"></script>
-    <script src="{% static 'assets/js/cartoes.js' %}"></script>
-    <script src="{% static 'assets/js/logout.js' %}"></script>
+      <!-- Total (lido do localStorage pelo JS) -->
+      <div class="form-group">
+        <label>Total a pagar</label>
+        <div><strong id="amountDisplay">—</strong></div>
+        <input type="hidden" id="amount" value="0.00">
+      </div>
 
+      <button type="submit" class="btn-submit" id="btn-submit">Enviar</button>
+      <button type="button" id="btn-back-cart" class="btn-back-cart">Voltar ao Carrinho</button>
+    </form>
+  </main>
 
+  <script src="{% static 'assets/js/cartoes.js' %}"></script>
+  <script src="{% static 'assets/js/logout.js' %}"></script>
 </body>
 </html>
-

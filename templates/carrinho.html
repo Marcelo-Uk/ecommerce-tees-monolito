@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
                 <p>Um e-commerce digital desenvolvido pelos "Guris"</p>
             </div>
             <div class="header-buttons">
-                {# Use Django URL tag for internal links #}
+                <!-- Link interno para a listagem de produtos -->
                 <a href="{% url 'core:products' %}" class="btn btn-secondary">Voltar para Produtos</a>
                 <button id="logoutButton" class="btn btn-danger">Sair</button>
             </div>
@@ -31,27 +31,36 @@
     <main class="body-container">
         <div class="cart-container">
             <h2>Seu Carrinho</h2>
+
+            <!-- Onde os itens serão renderizados via JS -->
             <div id="cart-items" class="cart-items">
                 <!-- Produtos do carrinho serão adicionados dinamicamente aqui -->
             </div>
+
             <div class="cart-summary">
-                <p id="total-price">Total: R$ 0,00</p>
+                <!-- Mantive o texto e criei um span com id cart-total para o JS ler o número -->
+                <p id="total-price">Total: <span id="cart-total">R$ 0,00</span></p>
+
                 <div class="cart-buttons">
                     <button id="clear-cart" class="btn btn-danger">Limpar Carrinho</button>
-                    {# Use Django URL tag for internal links #}
+
                     <a href="{% url 'core:products' %}" class="btn btn-secondary">Voltar para Produtos</a>
-                    {# Button triggers JS, which should redirect to the payment page URL #}
-                    <button id="checkout" class="btn btn-primary">Ir para Pagamento</button>
+
+                    <!-- Botão que o JS usa para salvar o total no localStorage e redirecionar -->
+                    <button
+                      id="checkout"
+                      class="btn btn-primary"
+                      type="button"
+                      data-payment-url="{% url 'core:pagamento' %}">
+                      Ir para Pagamento
+                    </button>
                 </div>
             </div>
         </div>
     </main>
-    
+
     <script src="{% static 'assets/js/config.js' %}"></script>
     <script src="{% static 'assets/js/carrinho.js' %}" type="module"></script>
     <script src="{% static 'assets/js/logout.js' %}"></script>
-
-    
 </body>
 </html>
-

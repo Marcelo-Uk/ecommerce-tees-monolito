@@ -97,9 +97,20 @@ function setupEventListeners() {
     });
 
     document.getElementById('checkout').addEventListener('click', () => {
-        alert('Você será redirecionado para a página de Pagamento!');
-        // Aqui você redireciona para a página de pagamento
-        window.location.href = '/pagamento/'; // Redirect to Django URL path
+      try {
+        // garante que o total foi salvo (tela de pagamento usa localStorage.totalValue)
+        const cart = getCart();
+        updateTotalPrice(cart);
+    
+        const btn = document.getElementById('checkout');
+        const paymentUrl = btn?.dataset?.paymentUrl || '/pagamento/';
+    
+        // redireciona
+        window.location.assign(paymentUrl);
+      } catch (e) {
+        console.error('[carrinho] erro no checkout:', e);
+        alert('Não foi possível ir para o pagamento. Veja o console para detalhes.');
+      }
     });
 }
 

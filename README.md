@@ -1,67 +1,75 @@
-# 🧱 O Monolito – E-commerce Django
+E-commerce Monolito (Django)
 
-Plataforma de e-commerce desenvolvida com Django, REST Framework e integração de frontend com templates e estáticos.  
-Projeto educacional criado por desenvolvedores do IFG — "os Guris".
+Pequeno e-commerce monolítico em Django que lista produtos, possui carrinho e pagamento (cartão “fake” em dev). O frontend é servido pelos próprios templates do Django e a API expõe endpoints REST simples.
 
----
+📦 Stack
 
-###### 🚀 Tecnologias Utilizadas
+Python 3.11+ (recomendado)
 
-- Python 3.11+
-- Django 5+
-- Django REST Framework
-- SQLite3
-- HTML5, CSS3, JavaScript (Vanilla)
-- JWT Authentication
+Django 5.x
 
----
+Django REST Framework
 
-###### 📦 Requisitos
+SimpleJWT (auth via tokens, opcional)
 
-- Python 3.11 ou superior
-- Git
-- (Opcional) Ambiente virtual: `venv`
+django-cors-headers
 
----
+SQLite (dev)
 
-###### 🔧 Passos para Executar o Projeto
+Static files servidos pelo Django em DEBUG=True
 
-### 1. Clone o Repositório
+✅ Pré-requisitos
 
-git clone https://github.com/Marcelo-Uk/ecommerce-tees-monolito
+Python 3.11+
 
-E acesse a pasta onde foi baixado o projeto
+pip atualizado (python -m pip install --upgrade pip)
 
-### 2. Crie e Ative um Ambiente Virtual
+(Opcional) venv para isolar dependências
 
-python -m venv venv
 
-##### Windows
-venv\Scripts\activate
+# 1) Clone o repositório
+git clone https://github.com/<SEU_USUARIO>/<SEU_REPO>.git
+cd <SEU_REPO>
 
-##### Linux/macOS
-source venv/bin/activate
+# 2) Crie e ative um ambiente virtual (recomendado)
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
 
-### 3. Instale as Dependências
-
+# 3) Instale as dependências
 pip install -r requirements.txt
+# (se não existir requirements.txt, instale manualmente:)
+# pip install "Django>=5.0,<6" djangorestframework djangorestframework-simplejwt django-cors-headers
 
-### 4. Configure as Migrações
+🗃️ Configuração rápida
 
-python manage.py makemigrations
+O projeto já vem com DEBUG=True e banco SQLite configurado em settings.py.
+Você não deve versionar o arquivo db.sqlite3.
 
+# 4) Aplique as migrações
 python manage.py migrate
 
-### 5. Crie um Superusuário
-
+# 5) Crie um superusuário para acessar o /admin (opcional, mas útil)
 python manage.py createsuperuser
 
-### 6. Rode o Servidor Local
+▶️ Rodando
 
 python manage.py runserver
 
-### 7. Acesse no Navegador
 
-    Frontend: http://localhost:8000
+Acesse: http://127.0.0.1:8000/
 
-    Admin: http://localhost:8000/admin
+
+# Para adicionar produtos:
+
+Acesse /admin com o superusuário.
+
+Em Produtos, cadastre alguns produtos.
+
+A imagem é apenas o nome do arquivo (ex.: vga-1.png -- confira na pasta o nome das imgs), que deve existir em static/assets/imgs/.
+
+Em Cartões, cadastre um cartão (nº, nome, validade MM/AA, CVV) e saldos.
+
+
